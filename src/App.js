@@ -1,25 +1,26 @@
-import logo from './logo.svg';
+// eslint-disable-next-line no-unused-vars
+import React from 'react';
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+// import Admin from "./components/Admin/Admin";
+import Login from './components/Admin/Login/Login.jsx';
+// import AuthRequired from "./components/Admin/AuthRequired/AuthRequired.jsx";
+// import NotFound from "./components/NotFound/NotFound.jsx";
 import './App.css';
+import './css/normalize.css';
+import './css/styles.scss';
+
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  return(
+    <BrowserRouter>
+      <Routes> 
+          <Route path="/" element={<Login/>}/>
+        
+           
+        </Routes>
+        </BrowserRouter>
+      );
 }
 
 export default App;
