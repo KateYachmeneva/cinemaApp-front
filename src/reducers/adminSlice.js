@@ -19,7 +19,7 @@ export const getHalls = createAsyncThunk(
     "admin/getHalls",
     async(_, {getState}) => {
         const {token} = getState().auth;
-        const response = await fetch(HOST+process.env.REACT_APP_BASE_HALLS, {
+        const response = await fetch(HOST+process.env.REACT_APP_HALLS, {
             headers:{"Authorization":`Bearer ${token}`},
         });
         return await response.json();
@@ -30,7 +30,7 @@ export const createHall = createAsyncThunk(
     "admin/createHalls",
     async(name,{getState}) =>{
         const {token} = getState().auth;
-        const response = await fetch(HOST + process.env.REACT_APP_BASE_HALLS,{
+        const response = await fetch(HOST + process.env.REACT_APP_HALLS,{
             method:"POST",
             headers:{
                 "Authorization":`Bearer ${token}`,
@@ -41,12 +41,26 @@ export const createHall = createAsyncThunk(
         return response.ok;
     }
 );
-
+export const updateHall = createAsyncThunk(
+    "admin/updateHall",
+    async (hall, {getState}) => {
+        const {token} = getState().auth;
+        const response = await fetch(HOST + process.env.REACT_APP_HALLS + "/" + hall.id, {
+            method: "PUT",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(hall),
+        });
+        return response.ok;
+    }
+);
 export const deleteHall = createAsyncThunk(
     "admin/deleteHalls",
     async(id,{getState}) =>{
         const {token} = getState().auth;
-        const response = await fetch(`HOST + process.env.REACT_APP_BASE_HALLS/${id}`,{
+        const response = await fetch(HOST + process.env.REACT_APP_HALLS +'/' + id,{
             method:"DELETE",
             headers:{
                 "Authorization":`Bearer ${token}`,
@@ -59,7 +73,7 @@ export const getSeats = createAsyncThunk(
     "admin/getSeats",
     async (id, {getState}) => {
         const {token} = getState().auth;
-        const response = await fetch(`HOST + process.env.REACT_APP_BASE_SEATS${id}`, {
+        const response = await fetch(HOST + process.env.REACT_APP_SEATS +'/' + id, {
             headers: {"Authorization": `Bearer ${token}`},
         });
         return await response.json();
@@ -70,7 +84,7 @@ export const createSeats = createAsyncThunk(
     async(_,{getState}) =>{
         const {token} = getState().auth;
         const {seats} = getState().admin;
-        const response = await fetch(HOST + process.env.REACT_APP_BASE_SEATS,{
+        const response = await fetch(HOST + process.env.REACT_APP_SEATS,{
             method:"POST",
             headers:{
                 "Authorization":`Bearer ${token}`,
@@ -86,7 +100,7 @@ export const updateSeats = createAsyncThunk(
     async(_,{getState}) =>{
         const {token} = getState().auth;
         const {seats} = getState().admin;
-        const response = await fetch(HOST + process.env.REACT_APP_BASE_SEATSUPDATE,{
+        const response = await fetch(HOST + process.env.REACT_APP_SEATSUPDATE,{
             method:"PUT",
             headers:{
                 "Authorization":`Bearer ${token}`,
@@ -202,6 +216,22 @@ export const createSeance = createAsyncThunk(
     }
 );
 
+export const updateSeance = createAsyncThunk(
+    "admin/updateSeance",
+    async ({id, datetime, hall_id, film_id}, {getState}) => {
+        const {token} = getState().auth;
+        const response = await fetch(`HOST+process.env.REACT_APP_SEANCE/${id}`, {
+            method: "PUT",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({datetime, hall_id, film_id}),
+        });
+        return response.ok;
+    }
+);
+
 export const deleteSeance = createAsyncThunk(
     "admin/deleteSeance",
     async (id, {getState}) => {
@@ -223,7 +253,7 @@ const adminSlice = createSlice({
         craeteScheme:(state,action) => {
             action.seats = action.payload;
         },
-        craeteHallScheme:(state,action) => {
+        selectHallScheme:(state,action) => {
             action.selectedHallScheme = action.payload;
         },
         changeHallSize:(state,action) => {

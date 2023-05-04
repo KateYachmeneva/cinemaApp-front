@@ -1,70 +1,90 @@
-# Getting Started with Create React App
+# Система администрирования кинозалов "CinemaGo"
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Содержание
 
-## Available Scripts
+* [Запуск проекта](#install)
+* [Используемые технологии](#tech)
+* [Описание](#descr)
+* [Сущности](#types)
+* [Роли пользователей системы](#roles)
 
-In the project directory, you can run:
+## <a name="install">Установка с репозитория</a>
+1. Установка пакетов из composer.json
+```
+$ composer install
+```
+2. Создание конфигурационного файла .env и указание пути к базе данных (БД)
+```
+DB_CONNECTION=sqlite
+DB_DATABASE=\CinemaApp-Server\database\database.sqlite
+```
+3. Запуск миграций для создания таблиц в БД
+```
+php artisan migrate
+```
+4. При необходимости, заполнение таблиц БД тестовыми данными
+```
+php artisan db:seed
+```
+5. Установка пакетов из package.json
+```
+npm install
+```
+6. Запуск проекта локально:
+```
+npm start 
+php artisan serve
+```
+7. Доступ в панель администрирования  
+URL: *{APP_URL}/admin/login*  
+E-mail: *admin@mail.com*  
+Пароль: *administrator*
 
-### `npm start`
+## <a name="tech">Используемые технологии</a>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* Laravel
+* Laravel Sanctum
+* React
+* Redux Toolkit
+* React Router
+* SCSS
+* qrcode
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## <a name="descr">Описание</a>
 
-### `npm test`
+Веб-приложение "CinemaApp" содержит  функции сайта многозального кинотеатра. 
+Состоит из административной и клиентской части.
+Администратору предоставляются возможности по управлению залами, зрительскими местами, ценами,списком фильмов и расписанием сеансов.
+Клиенты (зрители) могут выбрать интересующий фильм, подходящий сеанс и забронировать билет на доступное место с получением QR-кода бронирования.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## <a name="types">Сущности</a>
+- *Кинозал*
+Помещение, в котором демонстрируются фильмы. Зал - прямоугольный, состоит из N * M различных зрительских мест.
 
-### `npm run build`
+- *Зрительское место*
+Место в кинозале. Зрительские места могут иметь статус: VIP, стандартный, недоступно для бронирования. Цены могут различаться в зависимости от статуса.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- *Фильм*
+Информация заполняется и редактируется администратором.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- *Сеанс*
+Временной промежуток, в котором в кинозале будет показываться фильм. Каждый сеанс соответствует своему кинозалу и фильму. На сеанс могут быть забронированы билеты.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- *Билет*
+QR-код c уникальным кодом бронирования, в котором указаны кинозал, место, ряд, сеанс, фильм. Билет действителен строго на свой сеанс.
 
-### `npm run eject`
+## <a name="roles">Роли пользователей системы</a>
+* Администратор - авторизованный пользователь
+* Гость - неавторизованный посетитель сайта
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Возможности администратора
+* Создание/редактирование залов
+* Создание/редактирование фильмов
+* Настройка цен
+* Создание/редактирование расписания показов фильмов
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Возможности гостя
+* Просмотр расписания
+* Просмотр фильмов
+* Выбор места в кинозале
+* Бронирование билета

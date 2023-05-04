@@ -1,14 +1,17 @@
-import Header from '../../Header/Header.jsx';
+import Header from '../Header/Header.jsx';
 import  { useEffect, useState } from 'react';
 // eslint-disable-next-line no-unused-vars
-import { useDispatch, useSelector, connect} from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import {useNavigate} from "react-router-dom";
-import {fetchToken, resetAuthStatus} from "../../../reducers/authSlice";
+import {fetchToken,resetAuthStatus} from "../../../reducers/authSlice";
 
 export default function Login() {
     const {status} = useSelector((state) => state.auth);
-    const EMPTY_STATE = {mail: "", pwd: ""};
-    const [loginForm, setLoginForm] = useState(EMPTY_STATE);
+    const [state, setState] = useState({
+        email: '',
+        password: '',
+      });
+    const EMPTY_STATE = {email: '', password: ''};
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -17,8 +20,9 @@ export default function Login() {
         if (status === "success") {
             dispatch(resetAuthStatus());
             navigate('/admin');
+            console.log('succses');
         } else if (status === "error") {
-            setLoginForm(EMPTY_STATE);
+            setState(EMPTY_STATE);
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [status]);
@@ -26,12 +30,18 @@ export default function Login() {
     const handleChange = ({target}) => {
         const name = target.name;
         const value = target.value;
-        setLoginForm((prevState) => ({...prevState, [name]: value}));
+        setState((prevState) => ({
+            ...prevState,
+            [name]: value,
+          }));
     };
 
     const handleSubmit = (event) => {
          event.preventDefault();
-        dispatch(fetchToken({email: loginForm.mail, password: loginForm.pwd}));
+         const userData = {
+            ...state,
+          };
+        dispatch(fetchToken(userData));
     };
 
     return (
@@ -48,6 +58,7 @@ export default function Login() {
                             acceptCharset="utf-8"
                             onSubmit={handleSubmit}
                         >
+                           
                             <label
                                 className="login__label"
                                 htmlFor="mail">
@@ -55,9 +66,9 @@ export default function Login() {
                                 <input
                                     className="login__input"
                                     type="mail"
-                                    placeholder="admin@gmail.com"
-                                    name="mail"
-                                    value={loginForm.mail}
+                                    placeholder="admin@mail.ru"
+                                    name="email"
+                                    value={state.email}
                                     onChange={handleChange}
                                     required
                                 />
@@ -69,9 +80,9 @@ export default function Login() {
                                 <input
                                     className="login__input"
                                     type="password"
-                                    placeholder="admin"
-                                    name="pwd"
-                                    value={loginForm.pwd}
+                                    placeholder="administrator"
+                                    name="password"
+                                    value={state.password}
                                     onChange={handleChange}
                                     required
                                 />

@@ -11,20 +11,18 @@ const initialState = {
 };
 export const fetchToken = createAsyncThunk(
     "auth/fetchToken",
-    async ({email,password}) => {
+    async (userData) => {
         const response = await fetch(HOST + process.env.REACT_APP_AUTH, {
-        method: "POST",
-        mode: 'no-cors',
+        method: 'POST',
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({email, password}),
+        body: JSON.stringify(userData),
         });
   
       if (response.status !== 200) {
         throw response.statusText;
       }
-      console.log(response.json());
       return await response.json();
-     
+      
     } 
 );
 const authSlice = createSlice({
@@ -43,6 +41,8 @@ const authSlice = createSlice({
                 state.status="error";
             })
             .addCase(fetchToken.fulfilled,(state,action)=>{
+                console.log(state.token);
+                console.log(action.payload);
                 state.token=action.payload.token;
                 state.status="success";
             })

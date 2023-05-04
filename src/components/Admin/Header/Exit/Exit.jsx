@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import {logout} from "../../../reducers/authSlice";
+import {logout} from "../../../../reducers/authSlice";
 import  {useSelector, connect} from 'react-redux';
 
 
