@@ -18,6 +18,7 @@ const popupSlice = createSlice ({
             state.id = id;
             state.active = true;
         },
+        // eslint-disable-next-line no-unused-vars
         closePopup: (state) => {
             return initialState
         },

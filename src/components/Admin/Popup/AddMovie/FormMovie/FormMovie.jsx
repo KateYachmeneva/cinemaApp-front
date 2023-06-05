@@ -11,6 +11,7 @@ export default function FormMovie(props) {
     const [form, setForm] = useState(INIT_STATE);
     const fileInput = useRef(null);
     const dispatch = useDispatch();
+    const baseLink = process.env.REACT_APP_BASE_URL || window.location;
 
     const handleChange = ({target}) => {
         const name = target.name;
@@ -21,7 +22,6 @@ export default function FormMovie(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(fileInput);
         callbackSubmit(
             form.title,
             form.description,
@@ -44,7 +44,7 @@ export default function FormMovie(props) {
         Постер фильма (до 2Мб)
         {poster &&
         <div className="conf-step__poster">
-            <img src={`images/${poster}`}/>
+            <img src={baseLink + process.env.REACT_APP_IMAGES + (`${poster}`.substr(7))}/>
         </div>
         }
         <input

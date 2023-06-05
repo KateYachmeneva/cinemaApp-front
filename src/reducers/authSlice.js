@@ -41,8 +41,6 @@ const authSlice = createSlice({
                 state.status="error";
             })
             .addCase(fetchToken.fulfilled,(state,action)=>{
-                console.log(state.token);
-                console.log(action.payload);
                 state.token=action.payload.token;
                 state.status="success";
             })

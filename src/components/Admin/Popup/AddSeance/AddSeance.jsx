@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {createSeance} from "../../../../reducers/adminSlice";
-import FormSeance from "./FormSeance";
+import FormSeance from "./FormSeance/FormSeance.jsx";
 
 export default function AddSeance() {
     const {movies, chosenDate} = useSelector((state) => state.admin);
@@ -13,6 +13,7 @@ export default function AddSeance() {
         hall_id = {id}
         film_id = {movies[0].id}
         date = {chosenDate}
-        time = {"00:00"}/>
+        time = {"00:00"}
+        />
   )
 }

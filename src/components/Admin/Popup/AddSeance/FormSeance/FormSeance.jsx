@@ -11,15 +11,14 @@ export default function FormSeance(props) {
  const today = new Date();
  const dispatch = useDispatch();
  const INIT_STATE = {date, time, hall: hall_id, movie: film_id};
- const [form, setForm] = useState (INIT_STATE);
+ const [form, setForm] = useState(INIT_STATE);
  
  const handleChange = ({target}) => {
-    console.log(target);
     const name = target.name;
     const value = target.value;
-    setForm((prevState) => ({...prevState, [name]:value}));
- }
- const handleSubmit = (event) => {
+    setForm((prevState) => ({...prevState, [name]: value}));
+};
+const handleSubmit = (event) => {
     event.preventDefault();
     const datetime = new Date(form.date);
     const datetimeFormatted = `${datetime.getFullYear()}-${('0' + (datetime.getMonth() + 1)).slice(-2)}-${('0' + datetime.getDate()).slice(-2)} ${form.time}`;
@@ -28,6 +27,7 @@ export default function FormSeance(props) {
         dispatch(getSeances());
     });
 };
+
 
 
  return (

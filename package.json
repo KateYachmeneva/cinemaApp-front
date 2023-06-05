@@ -9,12 +9,15 @@
     "@testing-library/user-event": "^13.5.0",
     "classnames": "^2.3.2",
     "prop-types": "^15.8.1",
+    "qrcode": "^1.5.3",
+    "qrcode.react": "^3.1.0",
     "react": "^18.2.0",
     "react-append-to-body": "^2.0.26",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.4",
     "react-scripts": "5.0.1",
     "redux": "^4.2.0",
+    "resolve-url-loader": "^5.0.0",
     "uuid": "^9.0.0",
     "web-vitals": "^2.1.4"
   },
@@ -50,7 +53,11 @@
     "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "file-loader": "^6.2.0",
     "react-router-dom": "^6.2.1",
-    "sass": "^1.58.3"
+    "sass": "^1.62.1",
+    "sass-loader": "^13.3.1",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.85.0"
   }
 }

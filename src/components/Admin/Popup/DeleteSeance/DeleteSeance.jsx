@@ -17,10 +17,10 @@ export default function DeleteSeance() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(deleteSeance(id).then (() => {
+        dispatch(deleteSeance(id)).then (() => {
             dispatch(closePopup());
             dispatch(getSeances());
-        }))
+        })
     };
   return (
     <form onSubmit={handleSubmit}>

@@ -7,7 +7,6 @@ import HallItem from "./HallItem/HallItem.jsx";
 
 export default function Halls() {
     const {halls} = useSelector((state) => state.admin);
-    console.log(halls);
     const dispatch = useDispatch();
 
     useEffect(() => {

@@ -45,7 +45,7 @@ export const updateHall = createAsyncThunk(
     "admin/updateHall",
     async (hall, {getState}) => {
         const {token} = getState().auth;
-        const response = await fetch(HOST + process.env.REACT_APP_HALLS + "/" + hall.id, {
+        const response = await fetch(HOST + process.env.REACT_APP_HALLS  +'/' + hall.id, {
             method: "PUT",
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -57,9 +57,10 @@ export const updateHall = createAsyncThunk(
     }
 );
 export const deleteHall = createAsyncThunk(
-    "admin/deleteHalls",
+    "admin/deleteHall",
     async(id,{getState}) =>{
         const {token} = getState().auth;
+        console.log(HOST + process.env.REACT_APP_HALLS +'/' + id);
         const response = await fetch(HOST + process.env.REACT_APP_HALLS +'/' + id,{
             method:"DELETE",
             headers:{
@@ -96,7 +97,7 @@ export const createSeats = createAsyncThunk(
     }
 );
 export const updateSeats = createAsyncThunk(
-    "admin/createHalls",
+    "admin/updateSeats",
     async(_,{getState}) =>{
         const {token} = getState().auth;
         const {seats} = getState().admin;
@@ -147,7 +148,7 @@ export const createMovie = createAsyncThunk(
 );
 
 export const updateMovie = createAsyncThunk(
-    "admin/createMovie",
+    "admin/updateMovie",
     async({id, title, description, duration, country, poster},{getState}) =>{
 
         let formData = new FormData()
@@ -157,12 +158,12 @@ export const updateMovie = createAsyncThunk(
         formData.append('duration', duration);
         formData.append('country', country);
         if(poster){
-            formData.append('poster', poster);
+             formData.append('poster', poster);
         }
         
 
         const {token} = getState().auth;
-        const response = await fetch(`HOST+process.env.REACT_APP_FILMS/${id}`,{
+        const response = await fetch(HOST+process.env.REACT_APP_FILMS+'/'+ id,{
             method:"POST",
             headers:{
                 "Authorization":`Bearer ${token}`,
@@ -177,7 +178,7 @@ export const deleteMovie = createAsyncThunk(
     "admin/deleteMovie",
     async (id, {getState}) => {
         const {token} = getState().auth;
-        const response = await fetch(`HOST+process.env.REACT_APP_FILMS/${id}`, {
+        const response = await fetch(HOST+process.env.REACT_APP_FILMS +'/'+ id, {
             method: "DELETE",
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -192,7 +193,7 @@ export const getSeances = createAsyncThunk(
     async (_, {getState}) => {
         const {token} = getState().auth;
         const {chosenDate} = getState().admin;
-        const response = await fetch(`HOST+process.env.REACT_APP_SEANCE/${chosenDate}`, {
+        const response = await fetch(HOST+process.env.REACT_APP_SEANCE +'/'+chosenDate, {
             headers: {"Authorization": `Bearer ${token}`},
         });
         return await response.json();
@@ -220,7 +221,7 @@ export const updateSeance = createAsyncThunk(
     "admin/updateSeance",
     async ({id, datetime, hall_id, film_id}, {getState}) => {
         const {token} = getState().auth;
-        const response = await fetch(`HOST+process.env.REACT_APP_SEANCE/${id}`, {
+        const response = await fetch(HOST+process.env.REACT_APP_SEANCE +'/'+id, {
             method: "PUT",
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -236,7 +237,7 @@ export const deleteSeance = createAsyncThunk(
     "admin/deleteSeance",
     async (id, {getState}) => {
         const {token} = getState().auth;
-        const response = await fetch(`HOST+process.env.REACT_APP_SEANCE/${id}`, {
+        const response = await fetch(HOST+process.env.REACT_APP_SEANCE +'/'+id, {
             method: "DELETE",
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -250,17 +251,25 @@ const adminSlice = createSlice({
     name:"admin",
     initialState,
     reducers:{
-        craeteScheme:(state,action) => {
-            action.seats = action.payload;
+        createScheme:(state,action) => {
+            state.seats = action.payload;
         },
         selectHallScheme:(state,action) => {
-            action.selectedHallScheme = action.payload;
+            state.selectedHallScheme = action.payload;
         },
-        changeHallSize:(state,action) => {
-            const {id,status} = action.payload;
-            const seats = state.seats.find((seat) => seat.id ===id);
-            seats.status = status;
-        }
+        changeHallSize: (state, action) => {
+            const {row, row_seats} = action.payload;
+            state.selectedHallScheme.row = row;
+            state.selectedHallScheme.row_seats = row_seats;
+        },
+        changeSeatStatus: (state, action) => {
+            const {id, status} = action.payload;
+            const seat = state.seats.find((seat) => seat.id === id);
+            seat.status = status;
+        },
+        chooseDate: (state, action) => {
+            state.chosenDate = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder

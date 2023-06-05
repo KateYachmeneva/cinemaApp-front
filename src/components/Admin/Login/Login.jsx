@@ -20,8 +20,7 @@ export default function Login() {
         if (status === "success") {
             dispatch(resetAuthStatus());
             navigate('/admin');
-            console.log('succses');
-        } else if (status === "error") {
+           } else if (status === "error") {
             setState(EMPTY_STATE);
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -1,16 +1,16 @@
+/* eslint-disable no-unused-vars */
 import {useDispatch, useSelector} from "react-redux";
 import {updateSeance} from "../../../../reducers/adminSlice";
 import {showPopup} from "../../../../reducers/popupSlice";
-import FormSeance from "../AddSeance/FormSeance";
+import FormSeance from "../AddSeance/FormSeance/FormSeance.jsx";
 
-export default function EditSeance() {
-    const dispatch = useDispatch;
+export default function EditSeance(props) {
+    const dispatch = useDispatch();
     const {id} = useSelector((state) => state.popup);
-    const seances = useSelector((state) => state.admin);
-    const session = (seances.find((session) => session.id === id));
+    const {seances} = useSelector((state) => state.admin);
+    const session = seances.find((session) => session.id === id);
     const datetime = new Date(session.datetime);
-    console.log (new Date);
-    console.log (datetime);
+
 
   return (
     <FormSeance

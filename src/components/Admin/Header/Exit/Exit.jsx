@@ -6,7 +6,6 @@ import  {useSelector, connect} from 'react-redux';
 
 const Exit = (props) => {
     const {token} = useSelector((state) => state.auth);
-    console.log (token);
     const handleClick = () =>  props.logout();
     
   return (
