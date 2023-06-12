@@ -12,8 +12,8 @@ export default function Client(props) {
             {props.nav && <Navigation/>}
             <main>
                 {props.children}
-            </main>
             { props.children.length === 0 && <MovieNotFound/>}
+            </main>
         </>
     );
 }
