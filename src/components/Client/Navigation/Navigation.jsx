@@ -15,6 +15,10 @@ export default function Navigation() {
         dispatch(chooseDate(`${day.getFullYear()}-${day.getMonth() + 1}-${day.getDate()}`));
     }
 
+    var handleStart = function handleStart(day, arg) {
+        setStart(new Date(day.setDate(day.getDate() + arg)));
+      };
+
  
     const daysArray = [new Date(start.getTime())];
     for (let i = 0; i < 5; i++) {
