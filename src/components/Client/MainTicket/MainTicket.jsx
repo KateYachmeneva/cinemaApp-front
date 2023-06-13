@@ -36,7 +36,7 @@ export default function MainTicket() {
                     />
                     {ticket.id &&
                         <QR
-                            code={`Билет: ${ticket.id}. Зал: ${session.name}. Время: ${session.time}. Места: ${seatsNumbers.join(', ')}`}
+                            code={`Билет: ${ticket.id}. Зал: ${session.name}. Время: ${session.datetime}. Места: ${seatsNumbers.join(', ')}`}
                         />
                     }
                     <p className="ticket__hint">Покажите QR-код нашему контроллеру для подтверждения бронирования.</p>
