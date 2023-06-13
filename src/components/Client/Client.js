@@ -5,14 +5,13 @@ import MovieNotFound from "./MainMovie/MovieNotFound/MovieNotFound.jsx";
 
 
 export default function Client(props) {
-    console.log(props.children);
-    return (
+      return (
         <>
             <Header/>
             {props.nav && <Navigation/>}
             <main>
                 {props.children}
-            { props.children.length === 0 && <MovieNotFound/>}
+            { props.children.length == 0 && <MovieNotFound/>}
             </main>
         </>
     );
